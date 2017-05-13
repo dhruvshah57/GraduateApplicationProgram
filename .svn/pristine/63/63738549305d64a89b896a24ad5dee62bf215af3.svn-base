@@ -1,0 +1,91 @@
+package springmvc.model;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Application")
+public class Application {
+
+    @Id
+    @GeneratedValue
+    private Integer appId;
+    
+    private String term;
+    
+    @OneToOne
+    private ApplicationStatus status;
+    
+    @ManyToOne
+    private Programs program;
+    
+    @ManyToOne
+    private StudentInformation studentInfo;
+    
+    
+    public Application()
+    {
+    }
+    
+    
+    public Integer getAppId() {
+		return appId;
+	}
+
+
+	public void setAppId(Integer appId) {
+		this.appId = appId;
+	}
+
+	public String getTerm() {
+		return term;
+	}
+
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+
+
+	public ApplicationStatus getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(ApplicationStatus status) {
+		this.status = status;
+	}
+
+
+	public Programs getProgram() {
+		return program;
+	}
+
+
+	public void setProgram(Programs program) {
+		this.program = program;
+	}
+
+
+	public StudentInformation getStudentInfo() {
+		return studentInfo;
+	}
+
+
+	public void setStudentInfo(StudentInformation studentInfo) {
+		this.studentInfo = studentInfo;
+	}
+	
+
+}
+
+
+
+

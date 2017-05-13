@@ -1,0 +1,32 @@
+package springmvc.model.dao.jpa;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+
+import springmvc.model.Users;
+import springmvc.model.dao.UserDao;
+
+@Repository
+public class UserDaoImpl implements UserDao {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public Users getUser( Integer id )
+    {
+        return entityManager.find( Users.class, id );
+    }
+
+    @Override
+    public List<Users> getUsers()
+    {
+        return entityManager.createQuery( "from Users order by id", Users.class )
+            .getResultList();
+    }
+
+}

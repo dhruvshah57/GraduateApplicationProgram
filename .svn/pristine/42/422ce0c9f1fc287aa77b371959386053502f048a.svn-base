@@ -1,0 +1,113 @@
+package springmvc.model;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Educational_Background")
+public class EducationalBackground {
+
+    @Id
+    @GeneratedValue
+    private Integer edubackId;
+
+    private String degreeRecieved;
+    
+    private String college;
+    
+    private String university;
+    
+    private String timePeriodAttended;
+    
+    private String major;
+    
+    
+    
+
+    private String transcript;
+    
+    
+    public EducationalBackground()
+    {
+    }
+
+
+	public Integer getEdubackId() {
+		return edubackId;
+	}
+
+
+	public void setEdubackId(Integer edubackId) {
+		this.edubackId = edubackId;
+	}
+
+
+	public String getDegreeRecieved() {
+		return degreeRecieved;
+	}
+
+
+	public void setDegreeRecieved(String degreeRecieved) {
+		this.degreeRecieved = degreeRecieved;
+	}
+
+
+	public String getCollege() {
+		return college;
+	}
+
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+
+	public String getUniversity() {
+		return university;
+	}
+
+
+	public void setUniversity(String university) {
+		this.university = university;
+	}
+
+
+	public String getTimePeriodAttended() {
+		return timePeriodAttended;
+	}
+
+
+	public void setTimePeriodAttended(String timePeriodAttended) {
+		this.timePeriodAttended = timePeriodAttended;
+	}
+
+
+	public String getMajor() {
+		return major;
+	}
+
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+
+	public String getTranscript() {
+		return transcript;
+	}
+
+
+	public void setTranscript(String transcript) {
+		this.transcript = transcript;
+	}
+
+
+}
+
+

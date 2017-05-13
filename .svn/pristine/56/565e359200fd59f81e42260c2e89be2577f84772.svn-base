@@ -1,0 +1,222 @@
+
+    create table Academic_Records (
+        acadrecId int4 not null,
+        gpa varchar(255),
+        gre varchar(255),
+        toefl varchar(255),
+        transcript varchar(255),
+        primary key (acadrecId)
+    );
+
+    create table AdditionalReq (
+        id int4 not null,
+        add_info_name varchar(255),
+        required boolean,
+        type varchar(255),
+        dept_dpmtId int4,
+        primary key (id)
+    );
+
+    create table Application (
+        appId int4 not null,
+        term varchar(255),
+        program_programId int4,
+        status_appstatusId int4,
+        studentInfo_stuinfoId int4,
+        primary key (appId)
+    );
+
+    create table Application_Status (
+        appstatusId int4 not null,
+        statusName varchar(255),
+        primary key (appstatusId)
+    );
+
+    create table Department (
+        dpmtId int4 not null,
+        dpmtName varchar(255),
+        primary key (dpmtId)
+    );
+
+    create table Educational_Background (
+        edubackId int4 not null,
+        college varchar(255),
+        degreeRecieved varchar(255),
+        major varchar(255),
+        timePeriodAttended varchar(255),
+        transcript varchar(255),
+        university varchar(255),
+        primary key (edubackId)
+    );
+
+    create table Programs (
+        programId int4 not null,
+        programName varchar(255),
+        requirement varchar(255),
+        department_dpmtId int4,
+        primary key (programId)
+    );
+
+    create table Student_Info (
+        stuinfoId int4 not null,
+        cin varchar(255),
+        citizenship varchar(255),
+        dob varchar(255),
+        fName varchar(255),
+        gender varchar(255),
+        lName varchar(255),
+        phoneNo varchar(255),
+        acadrecord_acadrecId int4,
+        id_id int4,
+        primary key (stuinfoId)
+    );
+
+    create table Student_Info_Educational_Background (
+        Student_Info_stuinfoId int4 not null,
+        edubckgrnd_edubackId int4 not null
+    );
+
+    create table additional_info (
+        addinfoId int4 not null,
+        value varchar(255),
+        addreq_id int4,
+        application_appId int4,
+        primary key (addinfoId)
+    );
+
+    create table user_role (
+        userroleID int4 not null,
+        userroleName varchar(255),
+        primary key (userroleID)
+    );
+
+    create table users (
+        id int4 not null,
+        emailID varchar(255),
+        firstName varchar(255),
+        lastName varchar(255),
+        password varchar(255),
+        enabled boolean not null,
+        username varchar(255),
+        role_userroleID int4,
+        primary key (id)
+    );
+
+    alter table Student_Info_Educational_Background 
+        add constraint UK_hesbkaipy4m675wwvjs59upb2 unique (edubckgrnd_edubackId);
+
+    alter table AdditionalReq 
+        add constraint FK_f0iv96r1gk0tekge63dstd2iq 
+        foreign key (dept_dpmtId) 
+        references Department;
+
+    alter table Application 
+        add constraint FK_wggq0jc2fqr0rgbosi5k22p1 
+        foreign key (program_programId) 
+        references Programs;
+
+    alter table Application 
+        add constraint FK_8qilx2wle7588vcxdvxyyqjky 
+        foreign key (status_appstatusId) 
+        references Application_Status;
+
+    alter table Application 
+        add constraint FK_52ebwpxojd4oob1c0vxsurfqr 
+        foreign key (studentInfo_stuinfoId) 
+        references Student_Info;
+
+    alter table Programs 
+        add constraint FK_ea323msgmtbiggq2r3hulhm16 
+        foreign key (department_dpmtId) 
+        references Department;
+
+    alter table Student_Info 
+        add constraint FK_nlh85p78165to7mnif2r3vgkh 
+        foreign key (acadrecord_acadrecId) 
+        references Academic_Records;
+
+    alter table Student_Info 
+        add constraint FK_2hc9jrsgb7u2pxopv98sdem6p 
+        foreign key (id_id) 
+        references users;
+
+    alter table Student_Info_Educational_Background 
+        add constraint FK_hesbkaipy4m675wwvjs59upb2 
+        foreign key (edubckgrnd_edubackId) 
+        references Educational_Background;
+
+    alter table Student_Info_Educational_Background 
+        add constraint FK_2wkpltjtr3x3vfiy8evyuew3l 
+        foreign key (Student_Info_stuinfoId) 
+        references Student_Info;
+
+    alter table additional_info 
+        add constraint FK_h7nkcqfcft0ctv5t5gdejrvna 
+        foreign key (addreq_id) 
+        references AdditionalReq;
+
+    alter table additional_info 
+        add constraint FK_6impi0846gnsow8f9ga6ywlin 
+        foreign key (application_appId) 
+        references Application;
+
+    alter table users 
+        add constraint FK_2m2e98wj24ymn6gy3f5v5r23l 
+        foreign key (role_userroleID) 
+        references user_role;
+
+    create sequence hibernate_sequence;
+
+--user role
+	INSERT INTO public.user_role( userroleid, userrolename) VALUES (1, 'admin');
+	INSERT INTO public.user_role( userroleid, userrolename) VALUES (2, 'student');
+	INSERT INTO public.user_role( userroleid, userrolename) VALUES (3, 'staff');
+	
+	
+	
+	--users
+	INSERT INTO users( id, emailid, firstname, lastname, password, username, role_userroleid) VALUES (1, 'admin@localhost.localdomain', 'admin', 'admin', 'abcd','admin','1');
+	INSERT INTO users( id, emailid, firstname, lastname, password, username, role_userroleid) VALUES (2, 'student1@localhost.localdomain', 'student1', 'student1', 'abcd','student1','2');
+	INSERT INTO users( id, emailid, firstname, lastname, password, username, role_userroleid) VALUES (3, 'student2@localhost.localdomain', 'student2', 'student2', 'abcd','student2','2');	
+	INSERT INTO users( id, emailid, firstname, lastname, password, username, role_userroleid) VALUES (4, 'staff1@localhost.localdomain', 'staff1', 'staff1', 'abcd','staff1','3');
+	INSERT INTO users( id, emailid, firstname, lastname, password, username, role_userroleid) VALUES (5, 'staff2@localhost.localdomain', 'staff2', 'staff2', 'abcd','staff2','3');
+	
+	--department 
+	 INSERT INTO Department (dpmtId, dpmtName) VALUES (1, 'Accounting Department');
+    INSERT INTO Department (dpmtId, dpmtName) VALUES (2, 'Computer Science Department');
+	
+	--program
+	INSERT INTO programs (programid, programname, requirement, department_dpmtid) VALUES (1, 'MS in Computer Science' ,'', 2);
+	INSERT INTO programs (programid, programname, requirement, department_dpmtid) VALUES (2, 'MS in Accounting' ,'', 1);
+	
+	--addtional requirements
+	INSERT INTO public.additionalreq( id, add_info_name, required, type, dept_dpmtid) VALUES (1, 'GMAT', true, 'text', 1);
+	
+	--application status
+	
+	INSERT INTO public.application_status (appstatusid, statusname) VALUES (1, 'New');
+	INSERT INTO public.application_status (appstatusid, statusname) VALUES (2, 'Pending Review');
+	INSERT INTO public.application_status (appstatusid, statusname) VALUES (3, 'Denied');
+	INSERT INTO public.application_status (appstatusid, statusname) VALUES (4, 'Recommend Admit');
+	INSERT INTO public.application_status (appstatusid, statusname) VALUES (5, 'Recommend Admit w/ Condition');
+
+	--academic record
+	
+	INSERT INTO public.academic_records( acadrecid, gpa, gre, toefl, transcript) VALUES (1, '3.0', '300', '100', 'sjsu');
+	
+	--student info
+	INSERT INTO public.student_info( stuinfoid, cin, citizenship, dob, fname, gender, lname, phoneno, acadrecord_acadrecid, id_id) VALUES (1, '304746291', 'US', '05/19/1992', 'Jack', 'Male', 'Johnson', '6265935484', 1, 2);
+
+	--educational background
+	
+	INSERT INTO public.educational_background( edubackid, college, degreerecieved, major, timeperiodattended, transcript, university) VALUES (1, 'San Jose State University', 'Bachelors', 'Accounting', '2010-2014', 'sjsu', 'california state university');
+	
+	
+   
+	--application
+	
+	INSERT INTO public.application(appid, term, program_programid, status_appstatusid, studentinfo_stuinfoid) VALUES (1, 'Fall 16', 2, 1, 1);
+
+	--additional information
+	
+	INSERT INTO public.additional_info (addinfoid, value, addreq_id, application_appid) VALUES (1, 'gmat', 1, 1);
